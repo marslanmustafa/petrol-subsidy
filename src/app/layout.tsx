@@ -109,6 +109,11 @@ export default function RootLayout({
     <html lang="ur" dir="rtl" className={`${inter.variable} ${jameelNoori.variable}`}>
       <head>
         <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8461505608863088"
+          crossOrigin="anonymous"
+        />
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />

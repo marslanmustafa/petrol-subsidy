@@ -19,42 +19,48 @@ export function Navbar() {
   const [guidesDropdownOpen, setGuidesDropdownOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 bg-background/80 backdrop-blur-lg border-b border-border shadow-xs">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 sm:h-18 flex items-center justify-between">
-        {/* Logo & Brand */}
-        <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group">
-          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-br from-emerald-50 to-emerald-100 dark:from-slate-900 dark:to-slate-950 border border-border p-1.5 flex items-center justify-center shadow-xs group-hover:scale-105 transition-all flex-shrink-0">
+    <header className="sticky top-0 z-40 bg-background/90 backdrop-blur-md border-b border-border shadow-xs">
+      <div className="max-w-6xl mx-auto px-3.5 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-2">
+        {/* Logo & Brand Title */}
+        <Link href="/" className="flex items-center gap-2 sm:gap-2.5 group shrink-0 min-w-0">
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-emerald-50 to-emerald-100 dark:from-slate-900 dark:to-slate-950 border border-border p-1 flex items-center justify-center shadow-xs group-hover:scale-105 transition-all shrink-0">
             <Image
               src="/images/logo.png"
               alt="Petrol Relief SMS Assistant Logo"
-              width={36}
-              height={36}
+              width={30}
+              height={30}
               className="object-contain w-auto h-auto drop-shadow-xs"
               priority
             />
           </div>
-          <div>
-            <span className={`text-foreground leading-tight block ${
-              isUrdu
-                ? "text-lg sm:text-xl font-urdu font-black"
-                : "text-sm sm:text-[15px] font-extrabold tracking-tight"
-            }`}>
+          <div className="flex flex-col min-w-0">
+            <span
+              className={`text-foreground leading-tight truncate block ${
+                isUrdu
+                  ? "text-base sm:text-lg font-urdu font-black"
+                  : "text-xs sm:text-sm font-extrabold tracking-tight"
+              }`}
+            >
               {isUrdu ? "پیٹرول ریلیف SMS" : "Petrol Relief SMS"}
             </span>
-            <span className={`text-primary font-bold uppercase block ${
-              isUrdu ? "text-xs font-urdu" : "text-[10px] sm:text-[11px] tracking-wider"
-            }`}>
+            <span
+              className={`text-primary font-bold uppercase hidden sm:block leading-none ${
+                isUrdu ? "text-[11px] font-urdu" : "text-[10px] tracking-wider"
+              }`}
+            >
               {isUrdu ? "سرکاری گیٹ وے: 9771" : "Official Gateway: 9771"}
             </span>
           </div>
         </Link>
 
-        {/* Desktop Navigation Links with Conditional Font Sizing */}
-        <nav className={`hidden lg:flex items-center text-muted-foreground ${
-          isUrdu
-            ? "gap-5 xl:gap-6 font-urdu text-[15px] font-semibold"
-            : "gap-4 xl:gap-5.5 text-xs xl:text-[13px] font-medium tracking-normal"
-        }`}>
+        {/* Desktop Navigation Links (Only visible on lg screens >= 1024px) */}
+        <nav
+          className={`hidden lg:flex items-center text-muted-foreground ${
+            isUrdu
+              ? "gap-5 xl:gap-6 font-urdu text-[15px] font-semibold"
+              : "gap-4 xl:gap-5.5 text-xs xl:text-[13px] font-medium tracking-normal"
+          }`}
+        >
           <Link href="/" className="hover:text-foreground transition-colors">
             {t.navHome}
           </Link>
@@ -74,6 +80,7 @@ export function Navbar() {
           {/* Guides Dropdown */}
           <div className="relative">
             <button
+              type="button"
               onClick={() => setGuidesDropdownOpen(!guidesDropdownOpen)}
               onBlur={() => setTimeout(() => setGuidesDropdownOpen(false), 200)}
               className="flex items-center gap-1 hover:text-foreground transition-colors cursor-pointer"
@@ -136,16 +143,16 @@ export function Navbar() {
           </Link>
         </nav>
 
-        {/* Right Actions: Shadcn Language Switcher & Start Registration CTA */}
-        <div className="flex items-center gap-2.5 sm:gap-3">
+        {/* Right Actions: Language Switcher, Desktop CTA & Mobile Hamburger */}
+        <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
           {/* Shadcn Switch for Language */}
           <LanguageSwitch size="sm" />
 
-          {/* Direct CTA */}
+          {/* Desktop Only CTA - strictly hidden on screens < 1024px */}
           <Button
             asChild
             size="sm"
-            className="hidden sm:inline-flex rounded-xl font-bold shadow-xs h-9 px-3.5"
+            className="hidden lg:inline-flex rounded-xl font-bold shadow-xs h-8.5 px-3"
           >
             <Link href="/register" className="flex items-center gap-1.5">
               <Smartphone className="w-3.5 h-3.5" />
@@ -155,12 +162,12 @@ export function Navbar() {
             </Link>
           </Button>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Hamburger Button (visible < 1024px) */}
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 text-foreground hover:bg-muted rounded-xl cursor-pointer"
-            aria-label="Toggle navigation"
+            className="lg:hidden p-1.5 text-foreground hover:bg-muted rounded-xl transition-colors cursor-pointer shrink-0"
+            aria-label="Toggle navigation menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -169,16 +176,21 @@ export function Navbar() {
 
       {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-background border-b border-border px-4 pt-3 pb-6 space-y-2.5">
-          {/* Mobile Language Switcher with Shadcn Switch */}
-          <div className="flex items-center justify-between py-2 border-b border-border">
-            <span className={`text-muted-foreground font-bold ${
-              isUrdu ? "text-sm font-urdu" : "text-xs"
-            }`}>
-              {isUrdu ? "زبان تبدیل کریں (Language):" : "Language / زبان:"}
-            </span>
-            <LanguageSwitch size="sm" />
-          </div>
+        <div className="lg:hidden bg-background/95 backdrop-blur-md border-b border-border px-4 pt-3 pb-6 space-y-2.5 shadow-md animate-fadeIn">
+          {/* Mobile Direct CTA Button */}
+          <Button asChild size="default" className="w-full rounded-xl font-bold shadow-sm mb-2">
+            <Link
+              href="/register"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center justify-center gap-2"
+            >
+              <Smartphone className="w-4 h-4" />
+              <span className={isUrdu ? "text-base font-urdu font-bold" : "text-sm font-bold"}>
+                {isUrdu ? "🚀 ابھی ایس ایم ایس تیار کریں" : "🚀 Start Registration Now"}
+              </span>
+            </Link>
+          </Button>
+
           <Link
             href="/"
             onClick={() => setMobileMenuOpen(false)}
@@ -274,5 +286,3 @@ export function Navbar() {
     </header>
   );
 }
-
-
