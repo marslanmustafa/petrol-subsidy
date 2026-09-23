@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://petrolrelief.pk/sitemap.xml",
+    sitemap: "https://vehicle-petrol-subsidy.vercel.app/sitemap.xml",
   };
 }

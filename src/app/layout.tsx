@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { LanguageProvider } from "@/lib/context/LanguageContext";
 import { Navbar } from "@/components/layout/Navbar";
@@ -21,7 +22,7 @@ const jameelNoori = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://petrolrelief.pk"),
+  metadataBase: new URL("https://vehicle-petrol-subsidy.vercel.app"),
   title: {
     default: "Petrol Relief SMS Assistant — 9771 Registration Helper",
     template: "%s | Petrol Relief SMS Assistant"
@@ -57,7 +58,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Petrol Relief SMS Assistant — 9771 Pakistan",
     description: "Prepare and launch your 9771 petrol relief registration SMS quickly and securely. 100% client-side privacy.",
-    url: "https://petrolrelief.pk",
+    url: "https://vehicle-petrol-subsidy.vercel.app",
     siteName: "Petrol Relief SMS Assistant",
     locale: "ur_PK",
     type: "website",
@@ -94,6 +95,7 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "Petrol Relief SMS Assistant",
+    "url": "https://vehicle-petrol-subsidy.vercel.app",
     "applicationCategory": "UtilityApplication",
     "operatingSystem": "All (iOS, Android, Windows, macOS)",
     "description": "Mobile-first public utility for Pakistani citizens to generate official 9771 petrol subsidy SMS.",
@@ -127,6 +129,7 @@ export default function RootLayout({
           </main>
           <Footer />
         </LanguageProvider>
+        <Analytics />
       </body>
     </html>
   );
